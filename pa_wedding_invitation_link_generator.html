@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Priyankara &amp;Amanda — Wedding Invitation Link Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --gold: #b8861a;
+        --gold-bright: #d4a030;
+        --gold-light: #e8c060;
+        --gold-pale: #f7e9c0;
+        --gold-border: rgba(184, 134, 26, 0.35);
+        --gold-faint: rgba(184, 134, 26, 0.12);
+        --white: #ffffff;
+        --ivory: #fdfaf3;
+        --ivory-2: #f8f3e6;
+        --ivory-3: #f0e8d5;
+        --ink: #2c1f08;
+        --ink-mid: #5a430e;
+        --ink-soft: #8a6a2a;
+        --line: rgba(184, 134, 26, 0.28);
+        --r-lg: 20px;
+        --r-md: 14px;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: var(--ivory);
+        color: var(--ink);
+        font-family: "Montserrat", sans-serif;
+        font-size: 15px;
+        line-height: 1.6;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        /* Subtle saree silk texture */
+        background-image:
+          repeating-linear-gradient(
+            45deg,
+            transparent 0px,
+            transparent 40px,
+            rgba(184, 134, 26, 0.025) 40px,
+            rgba(184, 134, 26, 0.025) 41px
+          ),
+          repeating-linear-gradient(
+            -45deg,
+            transparent 0px,
+            transparent 40px,
+            rgba(184, 134, 26, 0.02) 40px,
+            rgba(184, 134, 26, 0.02) 41px
+          );
+      }
+
+      .card {
+        background: var(--white);
+        border: 1px solid var(--line);
+        border-radius: var(--r-lg);
+        max-width: 500px;
+        width: 100%;
+        padding: clamp(24px, 6vw, 44px);
+        box-shadow: 0 16px 48px -16px rgba(184, 134, 26, 0.22);
+        position: relative;
+        overflow: hidden;
+      }
+      .card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--gold-bright),
+          var(--gold),
+          var(--gold-bright),
+          transparent
+        );
+      }
+      .card::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--gold-border),
+          transparent
+        );
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 28px;
+      }
+      .eyebrow {
+        font-family: "Cinzel", serif;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        color: var(--gold);
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      .title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(28px, 6vw, 38px);
+        font-weight: 500;
+        color: var(--ink);
+        line-height: 1.1;
+      }
+
+      .divider {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 18px 0;
+        opacity: 0.8;
+      }
+
+      .field {
+        margin-bottom: 20px;
+      }
+      .field label {
+        display: block;
+        font-family: "Cinzel", serif;
+        font-size: 9px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 8px;
+        font-weight: 600;
+      }
+      .input-group {
+        display: flex;
+        gap: 8px;
+      }
+      .prefix-select {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 17px;
+        padding: 12px;
+        background: var(--ivory);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        color: var(--ink);
+        outline: none;
+        cursor: pointer;
+      }
+      .text-input {
+        flex: 1;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 17px;
+        padding: 12px 14px;
+        background: var(--ivory);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        color: var(--ink);
+        outline: none;
+        transition: border-color 0.2s;
+      }
+      .text-input:focus,
+      .prefix-select:focus {
+        border-color: var(--gold-bright);
+      }
+
+      .btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        padding: 14px;
+        border-radius: 999px;
+        font-family: "Cinzel", serif;
+        font-size: 11px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        font-weight: 600;
+        cursor: pointer;
+        border: 1.5px solid var(--gold);
+        transition: all 0.25s;
+        margin-bottom: 12px;
+      }
+      .btn-primary {
+        background: var(--gold);
+        color: var(--white);
+      }
+      .btn-primary:hover {
+        background: var(--gold-bright);
+        border-color: var(--gold-bright);
+      }
+      .btn-secondary {
+        background: transparent;
+        color: var(--gold);
+      }
+      .btn-secondary:hover {
+        background: var(--gold-faint);
+      }
+      .btn-whatsapp {
+        background: #25d366;
+        color: #fff;
+        border-color: #25d366;
+        margin-top: 18px;
+      }
+      .btn-whatsapp:hover {
+        background: #128c7e;
+        border-color: #128c7e;
+      }
+      .btn svg {
+        width: 16px;
+        height: 16px;
+        fill: currentColor;
+      }
+
+      .preview-box {
+        background: var(--ivory-2);
+        border: 1px dashed var(--line);
+        border-radius: 10px;
+        padding: 16px;
+        margin-top: 24px;
+      }
+      .preview-title {
+        font-family: "Cinzel", serif;
+        font-size: 9px;
+        letter-spacing: 0.12em;
+        color: var(--ink-soft);
+        text-transform: uppercase;
+        margin-bottom: 8px;
+        font-weight: 600;
+      }
+      .preview-content {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 16px;
+        white-space: pre-wrap;
+        color: var(--ink-mid);
+        line-height: 1.4;
+      }
+
+      .toast {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%) translateY(100px);
+        background: var(--ink);
+        color: var(--white);
+        padding: 10px 24px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-family: "Montserrat", sans-serif;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        z-index: 100;
+      }
+      .toast.show {
+        transform: translateX(-50%) translateY(0);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="header">
+        <div class="eyebrow">Invitation Manager</div>
+        <h1 class="title">Wedding Link Generator</h1>
+        <div class="divider">
+          <svg
+            width="180"
+            height="20"
+            viewBox="0 0 180 20"
+            fill="none"
+            stroke="#b8861a"
+            stroke-width="1"
+          >
+            <line x1="0" y1="10" x2="70" y2="10" />
+            <path d="M72,10 Q90,0 108,10" />
+            <line x1="110" y1="10" x2="180" y2="10" />
+            <circle cx="90" cy="5" r="2" fill="#b8861a" stroke="none" />
+          </svg>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="guest-name">Guest Name</label>
+        <div class="input-group">
+          <select id="prefix" class="prefix-select">
+            <option value="Mr.">Mr.</option>
+            <option value="Miss.">Miss.</option>
+            <option value="Mrs.">Mrs.</option>
+            <option value="Dr.">Dr.</option>
+            <option value="None">None</option>
+          </select>
+          <input
+            type="text"
+            id="guest-name"
+            class="text-input"
+            placeholder="e.g. Priyankara"
+          />
+        </div>
+      </div>
+
+      <button class="btn btn-primary" id="copy-btn">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"
+          />
+        </svg>
+        Copy Invitation Link
+      </button>
+
+      <button class="btn btn-secondary" id="preview-btn">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"
+          />
+        </svg>
+        Preview WhatsApp Text
+      </button>
+
+      <button class="btn btn-whatsapp" id="whatsapp-btn">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.003 5.232 5.228.007 11.64.007c3.106.001 6.027 1.212 8.225 3.413 2.199 2.2 3.407 5.123 3.407 8.232-.003 6.413-5.228 11.637-11.64 11.637-2.01-.001-3.99-.519-5.748-1.503L0 24zm6.208-3.791c1.666.989 3.524 1.512 5.419 1.513 5.347 0 9.699-4.352 9.7-9.7.001-2.593-1.007-5.031-2.842-6.866C16.697 3.321 14.258 2.31 11.66 2.31c-5.352 0-9.704 4.352-9.705 9.7 0 1.964.516 3.882 1.496 5.568l-.98 3.578 3.666-.961zm11.536-5.093c-.304-.153-1.8-.886-2.077-.988-.278-.101-.48-.153-.68.153-.2.304-.777.988-.953 1.19-.177.203-.355.228-.659.076-1.026-.514-1.745-.92-2.434-1.503-.303-.256-.474-.532-.604-.734-.203-.304-.022-.468.13-.62.137-.137.304-.355.456-.532.152-.177.203-.304.304-.507.101-.203.051-.38-.025-.532-.076-.153-.68-1.639-.933-2.246-.247-.594-.499-.513-.68-.523-.176-.01-.379-.01-.582-.01-.203 0-.531.076-.81.38-.278.304-1.062 1.039-1.062 2.535 0 1.497 1.088 2.943 1.24 3.146.152.203 2.142 3.272 5.19 4.588.724.313 1.29.5 1.73.64.729.23 1.39.198 1.91.12.582-.087 1.8-.735 2.052-1.444.253-.709.253-1.317.177-1.444-.076-.127-.278-.203-.582-.356z"
+          />
+        </svg>
+        Send via WhatsApp
+      </button>
+
+      <div class="preview-box" id="preview-box" style="display: none">
+        <div class="preview-title">WhatsApp Message Preview</div>
+        <div class="preview-content" id="preview-text"></div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast">Invitation link copied!</div>
+
+    <script>
+      var prefixSelect = document.getElementById("prefix");
+      var nameInput = document.getElementById("guest-name");
+      var copyBtn = document.getElementById("copy-btn");
+      var previewBtn = document.getElementById("preview-btn");
+      var whatsappBtn = document.getElementById("whatsapp-btn");
+      var previewBox = document.getElementById("preview-box");
+      var previewText = document.getElementById("preview-text");
+      var toast = document.getElementById("toast");
+
+      // Helper to construct the full guest name
+      function getFullGuestName() {
+        var prefix = prefixSelect.value;
+        var name = nameInput.value.trim();
+        if (!name) return "";
+        return prefix === "None" ? name : prefix + " " + name;
+      }
+
+      // Get the invitation link (detects domain automatically)
+      function getInvitationUrl(guestName) {
+        var origin = window.location.origin;
+        var pathname = window.location.pathname;
+
+        // Remove the generator or invitation filename, including an optional trailing slash.
+        var cleanPath = pathname.replace(
+          /(pa_wedding_invitation_link_generator\.html|pa_wedding_invitation_link_generator|index\.html)\/?$/,
+          "",
+        );
+        if (!cleanPath.endsWith("/")) {
+          cleanPath += "/";
+        }
+
+        // If running on a web server (http/https), use clean root "/" url.
+        // If running locally from file://, target "index.html" explicitly.
+        var isHttp = origin.indexOf("http") === 0;
+        var fileTarget = isHttp ? "" : "index.html";
+
+        var baseUrl = origin + cleanPath + fileTarget;
+        if (guestName) {
+          return baseUrl + "?to=" + encodeURIComponent(guestName);
+        }
+        return baseUrl;
+      }
+
+      // Create the beautiful WhatsApp message text
+      function getShareMessage(guestName, url) {
+        var msg = "🌸 *Wedding Invitation* 🌸\n\n";
+        if (guestName) {
+          msg += "Dear *" + guestName + "*,\n\n";
+        } else {
+          msg += "Dear Guest,\n\n";
+        }
+        msg +=
+          "With hearts full of gratitude, we request the pleasure of your company on our special day.\n\n";
+        msg += "Please open your personalized invitation here:\n" + url;
+        return msg;
+      }
+
+      function showToast(message) {
+        toast.textContent = message;
+        toast.classList.add("show");
+        setTimeout(function () {
+          toast.classList.remove("show");
+        }, 2000);
+      }
+
+      // Copy Link action
+      copyBtn.addEventListener("click", function () {
+        var guestName = getFullGuestName();
+        var url = getInvitationUrl(guestName);
+
+        navigator.clipboard
+          .writeText(url)
+          .then(function () {
+            showToast("Link copied to clipboard!");
+          })
+          .catch(function () {
+            // Fallback
+            var el = document.createElement("textarea");
+            el.value = url;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand("copy");
+            document.body.removeChild(el);
+            showToast("Link copied!");
+          });
+      });
+
+      // Preview action
+      previewBtn.addEventListener("click", function () {
+        var guestName = getFullGuestName();
+        var url = getInvitationUrl(guestName);
+        var message = getShareMessage(guestName, url);
+
+        previewText.textContent = message;
+        previewBox.style.display = "block";
+      });
+
+      // WhatsApp share action
+      whatsappBtn.addEventListener("click", function () {
+        var guestName = getFullGuestName();
+        var url = getInvitationUrl(guestName);
+        var message = getShareMessage(guestName, url);
+
+        var whatsappUrl =
+          "https://api.whatsapp.org/send?text=" + encodeURIComponent(message);
+        window.open(whatsappUrl, "_blank");
+      });
+
+      // Auto preview on inputs change if preview is already visible
+      function autoUpdate() {
+        if (previewBox.style.display === "block") {
+          var guestName = getFullGuestName();
+          var url = getInvitationUrl(guestName);
+          previewText.textContent = getShareMessage(guestName, url);
+        }
+      }
+      nameInput.addEventListener("input", function () {
+        var value = nameInput.value;
+        var capitalizedValue = value.replace(
+          /(^|\s)(\S)/g,
+          function (match, space, letter) {
+            return space + letter.toUpperCase();
+          },
+        );
+        if (value !== capitalizedValue) {
+          var cursorPosition = nameInput.selectionStart;
+          nameInput.value = capitalizedValue;
+          nameInput.setSelectionRange(cursorPosition, cursorPosition);
+        }
+        autoUpdate();
+      });
+      prefixSelect.addEventListener("change", autoUpdate);
+    </script>
+  </body>
+</html>
