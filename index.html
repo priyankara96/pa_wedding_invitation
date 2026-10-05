@@ -207,6 +207,7 @@
    ============================================= */
       .hero {
         position: relative;
+        z-index: 1;
         height: 100vh;
         min-height: 100vh;
         display: flex;
@@ -221,11 +222,9 @@
         position: absolute;
         top: 50%;
         left: 50%;
+        width: 100%;
+        height: 100%;
         transform: translate(-50%, -50%);
-        min-width: 100%;
-        min-height: 100%;
-        width: auto;
-        height: auto;
         object-fit: cover;
         z-index: 0;
         pointer-events: none;
@@ -480,12 +479,20 @@
         background: var(--white);
       }
       .hero-body {
+        position: relative;
+        isolation: isolate;
+      }
+      .hero-body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
         background-image: url("mobile screen background.png");
         background-position: center;
         background-size: 100% 100vh;
         background-size: 100% 100dvh;
         background-repeat: no-repeat;
-        background-attachment: fixed;
       }
       .hero-body .bg-white,
       .hero-body .bg-gold-faint {
@@ -2024,6 +2031,15 @@
         visibility: hidden;
         pointer-events: none;
       }
+      @media (max-width: 768px) {
+        .env-overlay {
+          border: 14px solid #141414;
+          border-radius: 44px;
+          outline: 3px solid #df9aa1;
+          outline-offset: -7px;
+          box-shadow: 0 25px 80px rgba(0, 0, 0, 0.52);
+        }
+      }
       .env-wrapper {
         position: relative;
         margin-top: 100px;
@@ -2239,6 +2255,11 @@
         user-select: none;
       }
       .env-prompt {
+        appearance: none;
+        min-height: 44px;
+        padding: 12px 20px;
+        border: 0;
+        background: transparent;
         margin-top: 36px;
         font-family: "Cinzel", serif;
         font-size: clamp(10px, 3vw, 12px);
@@ -2246,19 +2267,10 @@
         color: var(--gold-light);
         text-transform: uppercase;
         text-align: center;
-        animation: pulsePrompt 2s infinite ease-in-out;
+        opacity: 0.85;
         cursor: pointer;
-      }
-      @keyframes pulsePrompt {
-        0%,
-        100% {
-          opacity: 0.6;
-          transform: translateY(0);
-        }
-        50% {
-          opacity: 1;
-          transform: translateY(-4px);
-        }
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
       }
 
       /* Prevent body scrolling while envelope is active */
@@ -2302,8 +2314,14 @@
           height: var(--device-height);
         }
 
-        .hero-body {
-          background-size: var(--device-width) var(--device-height);
+        .hero-body::before {
+          inset: auto;
+          top: calc((100svh - var(--device-height)) / 2 + 10px);
+          left: calc((100vw - var(--device-width)) / 2 + 10px);
+          width: calc(var(--device-width) - 20px);
+          height: calc(var(--device-height) - 20px);
+          border-radius: 28px;
+          background-size: 100% 100%;
         }
 
         .hero-names {
@@ -2405,7 +2423,9 @@
           </div>
         </div>
       </div>
-      <div class="env-prompt" id="envPrompt">Click to Open</div>
+      <button class="env-prompt" id="envPrompt" type="button">
+        Click to Open
+      </button>
     </div>
 
     <!-- Background Music -->
@@ -3619,6 +3639,7 @@
         var wrapper = document.getElementById("envelopeWrapper");
         var seal = document.getElementById("waxSeal");
         var promptEl = document.getElementById("envPrompt");
+        var heroVideo = document.querySelector(".hero-video");
         var isOpened = false;
 
         /* --- Music & Control references --- */
@@ -3711,6 +3732,20 @@
         function openEnvelope() {
           if (isOpened) return;
           isOpened = true;
+
+          if (heroVideo) {
+            try {
+              heroVideo.muted = true;
+              var videoPlayback = heroVideo.play();
+              if (videoPlayback && typeof videoPlayback.catch === "function") {
+                videoPlayback.catch(function (error) {
+                  console.warn("Hero video playback could not start:", error);
+                });
+              }
+            } catch (error) {
+              console.warn("Hero video playback could not start:", error);
+            }
+          }
 
           // Start music immediately (user gesture allows autoplay)
           startMusic();
