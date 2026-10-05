@@ -480,12 +480,17 @@
         background: var(--white);
       }
       .hero-body {
-        background-image: url("mobile screen background.png");
-        background-position: center;
-        background-size: 100% 100vh;
-        background-size: 100% 100dvh;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
+        position: relative;
+        isolation: isolate;
+      }
+      .hero-body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        background: url("mobile screen background.png") center / cover
+          no-repeat;
+        pointer-events: none;
       }
       .hero-body .bg-white,
       .hero-body .bg-gold-faint {
@@ -2303,7 +2308,19 @@
         }
 
         .hero-body {
-          background-size: var(--device-width) var(--device-height);
+          --background-inset: 10px;
+        }
+
+        .hero-body::before {
+          inset: auto;
+          top: calc(
+            (100svh - var(--device-height)) / 2 + var(--background-inset)
+          );
+          left: calc(
+            (100vw - var(--device-width)) / 2 + var(--background-inset)
+          );
+          width: calc(var(--device-width) - 2 * var(--background-inset));
+          height: calc(var(--device-height) - 2 * var(--background-inset));
         }
 
         .hero-names {
@@ -2731,7 +2748,7 @@
           <div class="preshoot-gallery reveal">
             <figure class="preshoot-photo">
               <img
-                src="mobile screen background.png"
+                src="img.png"
                 alt="Priyankara and Amanda's preshoot portrait"
                 width="3024"
                 height="4032"
@@ -2741,7 +2758,7 @@
             </figure>
             <figure class="preshoot-photo">
               <img
-                src="mobile screen background.png"
+                src="img.png"
                 alt="Priyankara and Amanda together at the beach"
                 width="3024"
                 height="4032"
@@ -2751,7 +2768,7 @@
             </figure>
             <figure class="preshoot-photo">
               <img
-                src="mobile screen background.png"
+                src="img.png"
                 alt="Priyankara and Amanda sharing a preshoot moment"
                 width="3024"
                 height="4032"
@@ -2761,7 +2778,7 @@
             </figure>
             <figure class="preshoot-photo">
               <img
-                src="mobile screen background.png"
+                src="img.png"
                 alt="Priyankara and Amanda in their preshoot outfits"
                 width="3024"
                 height="4032"
@@ -2771,7 +2788,7 @@
             </figure>
             <figure class="preshoot-photo">
               <img
-                src="mobile screen background.png"
+                src="img.png"
                 alt="A favorite preshoot portrait of Priyankara and Amanda"
                 width="3024"
                 height="4032"
