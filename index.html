@@ -365,6 +365,14 @@
         color: var(--gold-light);
         margin-bottom: 10px;
       }
+      .hero-eyebrow-sub {
+        font-family: "Cinzel", serif;
+        font-size: clamp(5px, 2vw, 9px);
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: var(--gold-light);
+        margin-bottom: 10px;
+      }
       .hero-names {
         font-family: "Cormorant Garamond", serif;
         font-size: clamp(48px, 13vw, 75px);
@@ -499,7 +507,7 @@
       }
       .section-title {
         font-family: "Cormorant Garamond", serif;
-        font-size: clamp(28px, 6vw, 48px);
+        font-size: clamp(28px, 5vw, 30px);
         font-weight: 500;
         color: var(--ink);
         line-height: 1.1;
@@ -1590,7 +1598,7 @@
       @media (max-width: 768px), (min-width: 769px) {
         .hero-inner {
           padding: clamp(50px, 10vw, 80px) clamp(14px, 5vw, 28px)
-            clamp(40px, 8vw, 60px);
+            clamp(0px, 8vw, 60px);
         }
         .hero-strip-top,
         .hero-strip-bot {
@@ -1687,10 +1695,14 @@
           bottom: 8px;
         }
         .hero-inner {
-          padding: 50px 12px 40px;
+          padding: 0px 12px 40px;
         }
         .hero-eyebrow {
           font-size: 12px;
+          letter-spacing: 0.24em;
+        }
+        .hero-eyebrow-sub {
+          font-size: 9px;
           letter-spacing: 0.24em;
         }
         .hero-dateline {
@@ -1917,16 +1929,18 @@
         font-size: clamp(16px, 6.5vw, 24px);
         font-style: italic;
         color: rgba(255, 255, 255, 0.85);
-        margin: 6px auto 16px;
+        margin: 20px auto 5px;
         border-bottom: 1.5px solid var(--gold-border);
+        border-top: 1.5px solid var(--gold-border);
         padding-bottom: 4px;
+        padding-top: 4px;
         min-width: 140px;
         text-align: center;
         display: inline-block;
       }
       .ceremony-guest {
         font-family: "Cormorant Garamond", serif;
-        font-size: clamp(32px, 8vw, 46px);
+        font-size: clamp(30px, 6vw, 34px);
         font-style: italic;
         font-weight: 500;
         color: var(--gold);
@@ -2158,28 +2172,30 @@
         letter-spacing: 0.25em;
         color: var(--gold);
         text-transform: uppercase;
-        margin-bottom: 6px;
+        margin: 0;
       }
       .env-card-title {
         font-family: "Cormorant Garamond", serif;
-        font-size: clamp(20px, 5vw, 28px);
+        font-size: clamp(15px, 5vw, 25px);
         color: var(--ink);
         line-height: 1.1;
         font-weight: 500;
+        margin: 0;
       }
       .env-card-amp {
         font-family: "Cormorant Garamond", serif;
         font-style: italic;
-        font-size: 14px;
+        font-size: 13px;
         color: var(--gold-bright);
-        margin: 2px 0;
+        margin: 0;
       }
       .env-card-date {
         font-family: "Cinzel", serif;
-        font-size: 8.5px;
+        font-size: 8px;
         letter-spacing: 0.15em;
         color: var(--ink-soft);
         text-transform: uppercase;
+        margin-bottom: 8px;
         margin-top: 8px;
       }
 
@@ -2408,7 +2424,7 @@
               <div class="env-card-title">Priyankara</div>
               <div class="env-card-amp">&amp;</div>
               <div class="env-card-title">Amanda</div>
-              <div class="env-card-date">November 28, 2026</div>
+              <div class="env-card-date">November 28, 2026 ~ 6.30 PM</div>
             </div>
           </div>
 
@@ -2620,13 +2636,14 @@
         </svg>
 
         <div class="hero-eyebrow">You Are Cordially Invited</div>
-        <div class="hero-guest" id="heroGuest"></div>
+        <div class="hero-eyebrow-sub">to celebrate the wedding of</div>
         <h1 class="hero-names serif">
           Priyankara<span class="hero-amp">&amp;</span>Amanda
         </h1>
+        <div class="hero-guest" id="heroGuest"></div>
         <div class="hero-dateline">Saturday &middot; 28th November 2026</div>
         <div class="hero-venue serif">
-          Homecoming Celebration &middot; Our Home
+          Homecoming Celebration &middot; At Home, Hettipola
         </div>
 
         <svg class="hero-bot-ornament" viewBox="0 0 240 48" aria-hidden="true">
