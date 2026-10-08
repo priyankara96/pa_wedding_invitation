@@ -3040,6 +3040,7 @@
                   type="text"
                   id="rsvp-name"
                   required
+                  autocapitalize="words"
                   placeholder="Full name"
                 />
               </div>
@@ -3177,6 +3178,7 @@
                   type="text"
                   id="wish-name"
                   required
+                  autocapitalize="words"
                   placeholder="Full name"
                 />
               </div>
@@ -3513,6 +3515,21 @@
           },
         };
 
+        // Auto-capitalize first letter of each word in name fields (desktop + mobile)
+        function capitalizeWords(el) {
+          el.addEventListener("input", function () {
+            var pos = this.selectionStart;
+            this.value = this.value.replace(/\b\w/g, function (c) {
+              return c.toUpperCase();
+            });
+            this.setSelectionRange(pos, pos);
+          });
+        }
+        var rsvpNameEl = document.getElementById("rsvp-name");
+        var wishNameEl = document.getElementById("wish-name");
+        if (rsvpNameEl) capitalizeWords(rsvpNameEl);
+        if (wishNameEl) capitalizeWords(wishNameEl);
+
         document
           .getElementById("rsvp-form")
           .addEventListener("submit", async function (e) {
@@ -3530,20 +3547,20 @@
             var note = document.getElementById("rsvp-note").value.trim();
 
             var jotformRSVPData = {
-              formID: "262373390050451",
-              simple_spc: "262373390050451-262373390050451",
-              q33_typeA: name,
-              q35_typeA35: isYes ? "Joyfully Yes" : "Regretfully No",
-              q36_typeA36: isYes
+              formID: "262804932378465",
+              simple_spc: "262804932378465-262804932378465",
+              q15_typeA: name,
+              q16_typeA16: isYes ? "Joyfully Yes" : "Regretfully No",
+              q17_typeA17: isYes
                 ? "Attending: Yes | Guests: " +
                   guests +
-                  (note ? " Message: " + note : "")
-                : "Attending: No" + (note ? " Message: " + note : ""),
+                  (note ? " | Message: " + note : "")
+                : "Attending: No" + (note ? " | Message: " + note : ""),
             };
 
             try {
               await submitToJotform(
-                "https://submit.jotform.com/submit/262373390050451",
+                "https://submit.jotform.com/submit/262804932378465",
                 jotformRSVPData,
               );
 
