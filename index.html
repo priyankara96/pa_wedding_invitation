@@ -3449,9 +3449,6 @@
                   </button>
                 </div>
                 <div class="guest-pill-row" id="guest-pill-row">
-                  <button type="button" class="guest-pill" data-value="0">
-                    0
-                  </button>
                   <button type="button" class="guest-pill" data-value="1">
                     1
                   </button>
@@ -3737,6 +3734,7 @@
             );
           });
         }
+        syncGuestValue(guestInput.value);
 
         ag.addEventListener("click", function (e) {
           var opt = e.target.closest(".attend-opt");
