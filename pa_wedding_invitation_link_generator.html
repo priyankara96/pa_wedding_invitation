@@ -474,8 +474,7 @@
         var url = getInvitationUrl(guestName);
         var message = getShareMessage(guestName, url);
 
-        var whatsappUrl =
-          "https://api.whatsapp.org/send?text=" + encodeURIComponent(message);
+        var whatsappUrl = "https://wa.me/?text=" + encodeURIComponent(message);
         window.open(whatsappUrl, "_blank");
       });
 
