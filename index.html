@@ -380,7 +380,7 @@
       }
       .hero-top-ornament {
         width: clamp(160px, 50vw, 240px);
-        margin-bottom: 18px;
+        /* margin-bottom: 18px; */
         opacity: 0.85;
         animation: gentleFloat 5.5s ease-in-out infinite alternate;
       }
@@ -397,15 +397,18 @@
         font-size: clamp(8px, 2.2vw, 11px);
         letter-spacing: 0.32em;
         text-transform: uppercase;
-        color: var(--gold-light);
+        /* color: var(--gold-light); */
+        color: #e8dadb;
         margin-bottom: 10px;
+        margin-top: 20px;
       }
       .hero-eyebrow-sub {
         font-family: "Cinzel", serif;
         font-size: clamp(5px, 2vw, 9px);
         letter-spacing: 0.32em;
         text-transform: uppercase;
-        color: var(--gold-light);
+        /* color: var(--gold-light); */
+        color: #e8dadb;
         margin-bottom: 10px;
       }
       .hero-names {
@@ -466,7 +469,8 @@
         font-family: "Cormorant Garamond", serif;
         font-style: italic;
         font-size: clamp(16px, 4.5vw, 22px);
-        color: var(--gold-light);
+        /* color: var(--gold-light); */
+        color: rgba(255, 255, 255, 0.78);
         margin-top: 6px;
       }
       .hero-bot-ornament {
@@ -474,7 +478,8 @@
         margin-top: 24px;
         opacity: 0.65;
         transform: rotate(180deg);
-        animation: gentleFloatRotated 5.5s ease-in-out infinite alternate-reverse;
+        animation: gentleFloatRotated 5.5s ease-in-out infinite
+          alternate-reverse;
       }
       @keyframes gentleFloatRotated {
         0% {
@@ -500,7 +505,7 @@
         font-size: 10px;
         letter-spacing: 0.18em;
         text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.38);
+        color: rgba(255, 255, 255, 0.579);
       }
       .scroll-track {
         position: relative;
@@ -858,7 +863,9 @@
         letter-spacing: 0;
         text-transform: none;
         line-height: 1;
-        transition: transform 0.3s ease, color 0.3s ease;
+        transition:
+          transform 0.3s ease,
+          color 0.3s ease;
       }
       .ceremony-card:hover .datebar .dn {
         color: var(--gold-bright);
@@ -973,7 +980,9 @@
         font-size: 30px;
         line-height: 1;
         cursor: pointer;
-        transition: background 0.2s ease, transform 0.2s ease;
+        transition:
+          background 0.2s ease,
+          transform 0.2s ease;
       }
       .photo-lightbox-control:hover {
         transform: scale(1.06);
@@ -996,7 +1005,9 @@
         left: 50%;
         transform: translateX(-50%);
         color: #fff;
-        font: 500 14px "Cinzel", serif;
+        font:
+          500 14px "Cinzel",
+          serif;
         letter-spacing: 0.08em;
       }
       body.photo-lightbox-open {
@@ -2258,11 +2269,12 @@
         font-size: clamp(16px, 6.5vw, 24px);
         font-style: italic;
         color: rgba(255, 255, 255, 0.85);
-        margin: 20px auto 5px;
-        border-bottom: 1.5px solid var(--gold-border);
-        border-top: 1.5px solid var(--gold-border);
-        padding-bottom: 4px;
-        padding-top: 4px;
+        margin: 0px auto 5px;
+        /* border-bottom: 1.5px solid var(--gold-border); */
+        border-bottom: 1.5px solid rgba(146, 31, 58, 0.35);
+        /* border-top: 1.5px solid var(--gold-border); */
+        /* padding-bottom: 4px; */
+        /* padding-top: 4px; */
         min-width: 140px;
         text-align: center;
         display: inline-block;
@@ -2368,8 +2380,8 @@
         }
         20% {
           opacity: 1;
-          transform: translate(calc(var(--rand-x, 0px) * 0.3), -20px) scale(1.15)
-            rotate(var(--rand-rot, 10deg));
+          transform: translate(calc(var(--rand-x, 0px) * 0.3), -20px)
+            scale(1.15) rotate(var(--rand-rot, 10deg));
         }
         75% {
           opacity: 0.85;
@@ -3116,13 +3128,13 @@
           </g>
         </svg>
 
+        <div class="hero-guest" id="heroGuest"></div>
         <div class="hero-eyebrow">You Are Cordially Invited</div>
         <div class="hero-eyebrow-sub">to celebrate the wedding of</div>
         <h1 class="hero-names serif">
           Priyankara<span class="hero-amp">&amp;</span>Amanda
         </h1>
-        <div class="hero-guest" id="heroGuest"></div>
-        <div class="hero-dateline">Saturday &middot; 28th November 2026</div>
+        <div class="hero-dateline">on Saturday &middot; 28th November 2026</div>
         <div class="hero-venue serif">
           Homecoming Celebration &middot; At Home, Hettipola
         </div>
@@ -3842,8 +3854,10 @@
         document.addEventListener("keydown", function (event) {
           if (lightbox.hidden) return;
           if (event.key === "Escape") closePreshootViewer();
-          if (event.key === "ArrowLeft") showPreshootPhoto(activePhotoIndex - 1);
-          if (event.key === "ArrowRight") showPreshootPhoto(activePhotoIndex + 1);
+          if (event.key === "ArrowLeft")
+            showPreshootPhoto(activePhotoIndex - 1);
+          if (event.key === "ArrowRight")
+            showPreshootPhoto(activePhotoIndex + 1);
         });
 
         /* Countdown */
@@ -4440,8 +4454,12 @@
           if (typeof window.createSealBurst === "function") {
             try {
               var rect = seal ? seal.getBoundingClientRect() : null;
-              var bx = rect ? rect.left + rect.width / 2 : window.innerWidth / 2;
-              var by = rect ? rect.top + rect.height / 2 : window.innerHeight / 2;
+              var bx = rect
+                ? rect.left + rect.width / 2
+                : window.innerWidth / 2;
+              var by = rect
+                ? rect.top + rect.height / 2
+                : window.innerHeight / 2;
               window.createSealBurst(bx, by);
             } catch (err) {}
           }
@@ -4927,9 +4945,9 @@
             this.twinkleTime = Math.random() * Math.PI * 2;
             const golds = [
               "245, 215, 130", // champagne gold
-              "212, 160, 48",  // classic rich gold
+              "212, 160, 48", // classic rich gold
               "255, 240, 195", // stardust white-gold
-              "230, 145, 160"  // rose gold blush
+              "230, 145, 160", // rose gold blush
             ];
             this.color = golds[Math.floor(Math.random() * golds.length)];
           }
@@ -4983,7 +5001,7 @@
               "245, 215, 130",
               "212, 160, 48",
               "219, 76, 102",
-              "255, 255, 255"
+              "255, 255, 255",
             ];
             this.color = colors[Math.floor(Math.random() * colors.length)];
           }
@@ -5059,11 +5077,11 @@
             this.life = 1.0;
             this.decay = Math.random() * 0.015 + 0.012;
             const colors = [
-              "rgba(212, 160, 48, ",   // gold
-              "rgba(245, 215, 130, ",  // light gold
-              "rgba(143, 18, 48, ",    // wine red
-              "rgba(242, 140, 160, ",  // rose pink
-              "rgba(255, 255, 255, "   // ivory
+              "rgba(212, 160, 48, ", // gold
+              "rgba(245, 215, 130, ", // light gold
+              "rgba(143, 18, 48, ", // wine red
+              "rgba(242, 140, 160, ", // rose pink
+              "rgba(255, 255, 255, ", // ivory
             ];
             this.color = colors[Math.floor(Math.random() * colors.length)];
             this.shape =
@@ -5181,21 +5199,28 @@
         // Pointer move event listener for magical stardust trail
         let lastMove = 0;
         function handlePointer(e) {
-          if (!isAnimationActive || document.body.classList.contains("env-active"))
+          if (
+            !isAnimationActive ||
+            document.body.classList.contains("env-active")
+          )
             return;
           const now = Date.now();
           if (now - lastMove < 30) return;
           lastMove = now;
           const x =
-            e.clientX || (e.touches && e.touches[0] ? e.touches[0].clientX : null);
+            e.clientX ||
+            (e.touches && e.touches[0] ? e.touches[0].clientX : null);
           const y =
-            e.clientY || (e.touches && e.touches[0] ? e.touches[0].clientY : null);
+            e.clientY ||
+            (e.touches && e.touches[0] ? e.touches[0].clientY : null);
           if (x != null && y != null) {
             interactiveParticles.push(new InteractiveParticle(x, y));
             if (interactiveParticles.length > 45) interactiveParticles.shift();
           }
         }
-        window.addEventListener("pointermove", handlePointer, { passive: true });
+        window.addEventListener("pointermove", handlePointer, {
+          passive: true,
+        });
         window.addEventListener("touchmove", handlePointer, { passive: true });
 
         // Floating Musical Notes Manager
@@ -5239,7 +5264,10 @@
         const sparkles = Array.from({ length: 24 }, () => new Sparkle());
 
         function animate() {
-          if (!isAnimationActive || document.body.classList.contains("env-active")) {
+          if (
+            !isAnimationActive ||
+            document.body.classList.contains("env-active")
+          ) {
             ctx.clearRect(0, 0, width, height);
             requestAnimationFrame(animate);
             return;
