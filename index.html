@@ -4201,26 +4201,43 @@
             '<p class="wish-empty-sub">No wishes have been shared yet.<br/>Be the first to pen a loving blessing for Priyankara &amp; Amanda above!</p>' +
             "</div>";
           try {
-            var list = await appStorage.list("wish:");
-            if (!list || !list.keys || !list.keys.length) {
+            var apiUrl =
+              "https://api.jotform.com/form/262805289902464/submissions" +
+              "?apiKey=c1903f9b72686b6ceef4b63319ae4852" +
+              "&limit=50&orderby=created_at,DESC";
+            var resp = await fetch(apiUrl);
+            var data = await resp.json();
+            if (
+              !data ||
+              data.responseCode !== 200 ||
+              !data.content ||
+              !data.content.length
+            ) {
               wall.innerHTML = emptyHtml;
               return;
             }
-            var items = [];
-            for (var i = 0; i < list.keys.length; i++) {
-              try {
-                var r = await appStorage.get(list.keys[i]);
-                if (r && r.value) items.push(JSON.parse(r.value));
-              } catch (e) {}
-            }
+            var items = data.content
+              .filter(function (s) {
+                return s.status === "ACTIVE";
+              })
+              .map(function (s) {
+                var name =
+                  (s.answers["15"] && s.answers["15"].answer) || "";
+                var text =
+                  (s.answers["16"] && s.answers["16"].answer) || "";
+                var ts = s.created_at
+                  ? new Date(s.created_at.replace(" ", "T") + "Z").getTime()
+                  : 0;
+                return { name: name, text: text, ts: ts };
+              })
+              .filter(function (it) {
+                return it.name && it.text;
+              });
             if (!items.length) {
               wall.innerHTML = emptyHtml;
               return;
             }
-            items.sort(function (a, b) {
-              return (b.ts || 0) - (a.ts || 0);
-            });
-            var recentWishes = items.slice(0, 4);
+            var recentWishes = items.slice(0, 5);
             wall.innerHTML = recentWishes
               .map(function (it) {
                 var initial = (it.name || "G").trim().charAt(0).toUpperCase();
@@ -4289,20 +4306,10 @@
                 jotformWishData,
               );
 
-              var key =
-                "wish:" +
-                Date.now() +
-                "-" +
-                Math.random().toString(36).slice(2, 8);
-              await appStorage.set(
-                key,
-                JSON.stringify({ name: name, text: text, ts: Date.now() }),
-              );
-
               var msgEl = document.getElementById("wish-msg");
               msgEl.style.color = "#8a4d5a";
               msgEl.innerHTML =
-                '<div style="font-family: \'Cormorant Garamond\', serif; font-size: 20px; font-weight: 700; color: var(--gold-dark); margin-bottom: 2px; font-style: normal;">Thank You!</div><div style="font-size: 13px; color: var(--ink-mid); font-style: normal;">Your submission has been received.</div>';
+                '<div style="font-family: \'Cormorant Garamond\', serif; font-size: 20px; font-weight: 700; color: var(--gold-dark); margin-bottom: 2px; font-style: normal;">Thank You!</div><div style="font-size: 13px; color: var(--ink-mid); font-style: normal;">Your wishes have been received.</div>';
 
               if (typeof window.triggerCelebrationConfetti === "function") {
                 window.triggerCelebrationConfetti();
@@ -4311,7 +4318,8 @@
               // Clear form data
               document.getElementById("wish-name").value = "";
               document.getElementById("wish-text").value = "";
-              loadWishes();
+              // Reload after short delay to allow JotForm to process
+              setTimeout(function () { loadWishes(); }, 2000);
             } catch (err) {
               var msgElErr = document.getElementById("wish-msg");
               msgElErr.style.color = "#a33";
