@@ -465,21 +465,22 @@
       copyBtn.addEventListener("click", function () {
         var guestName = getFullGuestName();
         var url = getInvitationUrl(guestName);
+        var message = getShareMessage(guestName, url);
 
         navigator.clipboard
-          .writeText(url)
+          .writeText(message)
           .then(function () {
-            showToast("Link copied to clipboard!");
+            showToast("Invitation message copied to clipboard!");
           })
           .catch(function () {
             // Fallback
             var el = document.createElement("textarea");
-            el.value = url;
+            el.value = message;
             document.body.appendChild(el);
             el.select();
             document.execCommand("copy");
             document.body.removeChild(el);
-            showToast("Link copied!");
+            showToast("Invitation message copied!");
           });
       });
 
