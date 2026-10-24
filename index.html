@@ -3164,6 +3164,7 @@
     </section>
 
     <div class="hero-body">
+      <div id="SCROLL"></div>
       <!-- SAREE BAND -->
       <div class="saree-band" aria-hidden="true"></div>
 
@@ -3785,6 +3786,16 @@
           io.observe(el);
         });
 
+        /* Scroll-cue click → scroll to #SCROLL */
+        var scrollCue = document.querySelector(".scroll-cue");
+        var scrollTarget = document.getElementById("SCROLL");
+        if (scrollCue && scrollTarget) {
+          scrollCue.style.cursor = "pointer";
+          scrollCue.addEventListener("click", function () {
+            scrollTarget.scrollIntoView({ behavior: "smooth", block: "start" });
+          });
+        }
+
         /* Preshoot photo viewer */
         var preshootPhotos = Array.from(
           document.querySelectorAll(".preshoot-photo img"),
@@ -4221,10 +4232,8 @@
                 return s.status === "ACTIVE";
               })
               .map(function (s) {
-                var name =
-                  (s.answers["15"] && s.answers["15"].answer) || "";
-                var text =
-                  (s.answers["16"] && s.answers["16"].answer) || "";
+                var name = (s.answers["15"] && s.answers["15"].answer) || "";
+                var text = (s.answers["16"] && s.answers["16"].answer) || "";
                 var ts = s.created_at
                   ? new Date(s.created_at.replace(" ", "T") + "Z").getTime()
                   : 0;
@@ -4319,7 +4328,9 @@
               document.getElementById("wish-name").value = "";
               document.getElementById("wish-text").value = "";
               // Reload after short delay to allow JotForm to process
-              setTimeout(function () { loadWishes(); }, 2000);
+              setTimeout(function () {
+                loadWishes();
+              }, 2000);
             } catch (err) {
               var msgElErr = document.getElementById("wish-msg");
               msgElErr.style.color = "#a33";
